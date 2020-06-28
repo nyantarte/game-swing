@@ -12,7 +12,7 @@ public class FloorMap {
     private int m_roomNum=0;
     private Rectangle[] m_roomRects=new Rectangle[MAX_ROOM_NUM];
     private static final int MIN_BLOCKS_NUM=1;
-    
+    private int m_curFloorNum=0;
     public FloorMap(FieldMap data){
         m_data=data;
 
@@ -143,5 +143,14 @@ public class FloorMap {
 
     }
 
-    
+    public int getCurFloorNum(){
+        return m_curFloorNum;
+    }
+    public void setCurFloorNum(int i){
+        m_curFloorNum=i;
+    }
+    public int setMaxFloorNum(){
+        return m_data.getMaxFloorNum();
+    }
+
 }

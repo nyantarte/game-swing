@@ -109,6 +109,10 @@ public class MainWindow extends JFrame{
         p.add(new CharaDetailPanel(c));
         moveState(p);
     }
+
+    public void setMapResultState(boolean isSucceded,FloorMap m){
+        moveState(new MapResultPanel(isSucceded, m));
+    }
     private void moveState(JPanel p){
         getContentPane().removeAll();
         m_stateStack.push(p);

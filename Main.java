@@ -30,6 +30,7 @@ public class Main {
 
     public static final LispVM.NativeMethodType s_charaFunc=new CharaFunc();
     public static final LispVM.NativeMethodType s_pairFunc=new PairFunc();
+    public static final LispVM.NativeMethodType s_mapFunc=new MapFunc();
     public static LispVM createVMState(String src){
         try{
             LispVM vm=new LispVM();
@@ -40,6 +41,7 @@ public class Main {
             vm.reg("xaxis",CreatePanelFunc.LAYOUT_TYPE_XAXIS);
             vm.reg("chara",s_charaFunc);
             vm.reg("pair",s_pairFunc);
+            vm.reg("map",s_mapFunc);
             
             new LispSyntaxParser(vm, new LispLexerParser(src));
             vm.dump();

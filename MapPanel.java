@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-public class MapPanel extends JPanel implements Runnable,ContainerListener{
+public class MapPanel extends JPanel implements Runnable,ComponentListener{
 
     private static final int FPS_NUM=15;
     private static final long TIME_PER_FRAME=1000/FPS_NUM;
@@ -11,13 +11,9 @@ public class MapPanel extends JPanel implements Runnable,ContainerListener{
     private Thread m_thread;
     public MapPanel(FieldMap m){
         super();
+        addComponentListener(this);
         m_map=new FloorMap(m);
         m_playerParty=new MapParty(Main.s_playerParty);
-        Vector pos=null;
-        Rectangle r=m_map.getRoomsRect()[0];
-        pos=new Vector(r.x,r.y,0);
-        m_playerParty.setPos(pos);
-        m_playerParty.setMoveFunc(new AStarMoveFunc(m_map,m_playerParty) );
 
         m_thread=new Thread(this);
         m_thread.start();
@@ -27,7 +23,6 @@ public class MapPanel extends JPanel implements Runnable,ContainerListener{
 
     @Override
     public void paint(Graphics g){
-
         g.fillRect(0,0, getWidth(), getHeight());
 
         g.setColor(Color.WHITE);
@@ -51,7 +46,7 @@ public class MapPanel extends JPanel implements Runnable,ContainerListener{
 
 
     public void run(){
-
+        resetFloor();
         while(m_isRunning){
             try{
                 Thread.sleep(TIME_PER_FRAME);
@@ -65,18 +60,45 @@ public class MapPanel extends JPanel implements Runnable,ContainerListener{
 
     private void updateFrame(){
         m_playerParty.getMoveFunc().move(m_playerParty);
+        Vector goal=m_map.getGoalPos();
+        if(goal.equals(m_playerParty.getPos())){
+            if(m_map.getCurFloorNum() < m_map.getCurFloorNum()){
+                m_map.setCurFloorNum(m_map.getCurFloorNum()+1);
+                
+            }else{
+                ((MainWindow)(Main.s_mainWin)).returnState();    
+                m_isRunning=false;
+            }
+            ((MainWindow)(Main.s_mainWin)).setMapResultState(true,m_map);
+
+        }
     }
 
-    public void componentAdded(ContainerEvent e){
-
-    }
-
-    public void componentRemoved(ContainerEvent e){
+    public void componentHidden(ComponentEvent e){
         m_isRunning=false;
         try{
            m_thread.join();
         }catch(Exception err){
             err.printStackTrace();
         }
+    }
+
+    public void componentShown(ComponentEvent e){
+        m_isRunning=true;
+        m_thread.start();
+    }
+
+    public void componentMoved(ComponentEvent e){
+
+    }
+
+    public void componentResized(ComponentEvent e){}
+    private void resetFloor(){
+        m_map.resetFloor();
+        Vector pos=null;
+        Rectangle r=m_map.getRoomsRect()[0];
+        pos=new Vector(r.x,r.y,0);
+        m_playerParty.setPos(pos);
+        m_playerParty.setMoveFunc(new AStarMoveFunc(m_map,m_playerParty) );
     }
 }

@@ -40,6 +40,10 @@ class Vector implements Cloneable{
 	
 	}
 	
+	public boolean equals(Object o){
+		Vector v=(Vector)o;
+		return getX()==v.getX() && getY()==v.getY() && getZ()==v.getZ();
+	}
 	@Override
 	public String toString(){
 		return String.format("x=%f,y=%f",getX(),getY());

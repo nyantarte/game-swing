@@ -6,6 +6,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.html.StyleSheet.ListPainter;
 
+
 public class DevelopPanel extends JPanel{
 
     private JPanel m_menuPanel;
@@ -22,6 +23,11 @@ public class DevelopPanel extends JPanel{
         });
         p.add(b);
         b=new JButton("Map");
+        b.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                setMapListPanel();
+            }
+        });
         p.add(b);
 
         add(p,BorderLayout.WEST);
@@ -66,4 +72,32 @@ public class DevelopPanel extends JPanel{
 
     }
 
+    private void setMapListPanel(){
+        removeContentPane();
+        FieldMapListPanel panel=new FieldMapListPanel(true);
+        panel.addMouseListener(new MouseAdapter(){
+            public void mouseClicked(MouseEvent e){
+                FieldMap m=(FieldMap)panel.getSelectedValue();
+                if(1<e.getClickCount() && null!=m){
+                    setFieldMapEditPanel(m);
+                }
+            }
+        });
+        panel.addNewActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                setFieldMapEditPanel(null);
+            }
+        });
+        add(panel);
+        revalidate();
+        repaint();
+    }
+    private void setFieldMapEditPanel(FieldMap m){
+        removeContentPane();
+        FieldMapEditPanel editPanel=new FieldMapEditPanel(m);
+        add(editPanel);
+        revalidate();
+        repaint();;
+
+    }
 }

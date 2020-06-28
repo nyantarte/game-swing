@@ -11,6 +11,10 @@ SRC=LispLexerParser.java\
 	CreateFieldMapFunc.java\
 	CreatePanelFunc.java\
 	PairFunc.java\
+	MapFunc.java\
+	FieldMapListPanel.java\
+	MapResultPanel.java\
+	FieldMapEditPanel.java\
 	RootboxCharactorEditPanel.java\
 	CollectionButtonClickListener.java\
 	CharactorsButtonClickListener.java\
