@@ -39,7 +39,9 @@ class Vector implements Cloneable{
 	
 	
 	}
-	
+	public Rectangle convRect(int w,int h){
+		return new Rectangle((int)(getX()-w/2),(int)(getY()-h/2),w,h);		
+	}
 	public boolean equals(Object o){
 		Vector v=(Vector)o;
 		return getX()==v.getX() && getY()==v.getY() && getZ()==v.getZ();

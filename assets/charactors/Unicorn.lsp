@@ -1,0 +1,1 @@
+(chara (pair "name" "Unicorn")(pair "type" "AIR_CARRIER")(pair "life" "C")(pair "atk" "E")(pair "airAtk" "B")(pair "airDef" "B")(pair "avoid" "D")(pair "image" ""))

@@ -14,6 +14,10 @@ public class Main {
     public static final int CARD_IMG_W=600/2;
     public static final String ASSET_DIR="./assets";
     public static final String IMG_DIR=ASSET_DIR+"/image";
+    public static final String CHARA_DIR=ASSET_DIR+"/charactors";
+    public static final String MAP_DIR=ASSET_DIR+"/map";
+    public static final int FPS_NUM=15;
+    public static final long TIME_PER_FRAME=1000/FPS_NUM;
     //public static MainWindow s_mainWin;
     public static JFrame s_mainWin;
     public static List<RootboxCharactor> s_charaList=new ArrayList<>();
@@ -52,20 +56,37 @@ public class Main {
         }
         return null;
     }
-    
+    public static Party genParty(){
+        Party p=new Party();
+        p.getMembers()[0]=new BattleCharactor(s_charaList.get(0));
+        return p;
+    }
+    public static void runScriptFile(File f){
+        try{
+            BufferedReader reader=new BufferedReader(new FileReader(f));
+            StringBuffer sb=new StringBuffer();
+            String line;
+            while(null!=(line=reader.readLine())){
+                sb.append(line+"\n");
+            }
+            createVMState(sb.toString());
+        }catch(Exception e){
+            e.printStackTrace();;
+        }
+
+    }
     public static void main(String[] args){
         
-        if(0 < args.length){
-            try{
-                BufferedReader reader=new BufferedReader(new FileReader(args[0]));
-                StringBuffer sb=new StringBuffer();
-                String line;
-                while(null!=(line=reader.readLine())){
-                    sb.append(line+"\n");
-                }
-                createVMState(sb.toString());
-            }catch(Exception e){
-                e.printStackTrace();;
+        String[] files=(new File(CHARA_DIR)).list();
+        for(String fileName:files){
+            if(fileName.endsWith(".lsp")){
+                runScriptFile(new File(CHARA_DIR,fileName));
+            }
+        }
+        files=(new File(MAP_DIR)).list();
+        for(String fileName:files){
+            if(fileName.endsWith(".lsp")){
+                runScriptFile(new File(MAP_DIR,fileName));
             }
         }
 

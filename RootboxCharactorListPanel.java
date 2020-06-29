@@ -6,7 +6,7 @@ public class RootboxCharactorListPanel extends JPanel{
 
 
     private JList m_list;
-
+    private ActionListener m_newClickListener;
     public RootboxCharactorListPanel(boolean needItemMenu){
         super();
         setLayout(new BorderLayout());
@@ -18,6 +18,13 @@ public class RootboxCharactorListPanel extends JPanel{
             JPanel p=new JPanel();
             p.setLayout(new BoxLayout(p,BoxLayout.X_AXIS ));
             JButton b=new JButton("New");
+            b.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e){
+                    if(null!=m_newClickListener){
+                        m_newClickListener.actionPerformed(e);
+                    }
+                }
+            });
             p.add(b);
             b=new JButton("Delete");
             p.add(b);
@@ -39,6 +46,9 @@ public class RootboxCharactorListPanel extends JPanel{
 
     public void addMouseListener(MouseListener listener){
         m_list.addMouseListener(listener);
+    }
+    public void addNewClickListener(ActionListener listener){
+        m_newClickListener=listener;
     }
     public Object getSelectedValue(){
         return m_list.getSelectedValue();

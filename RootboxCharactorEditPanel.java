@@ -10,6 +10,7 @@ public class RootboxCharactorEditPanel extends JPanel{
     private JComboBox m_airAtkField;
     private JComboBox m_avoidField;
     private JComboBox m_airDefField;
+    private JComboBox m_torpedoField;
     private JTextField m_imageField;
     private RootboxCharactor m_target;
     private ActionListener m_closeAction;
@@ -34,16 +35,6 @@ public class RootboxCharactorEditPanel extends JPanel{
         }
         p.add(m_typeField);
         add(p);
-        p=new JPanel();
-        p.setLayout(new BoxLayout(p,BoxLayout.X_AXIS));
-        p.add(new JLabel("Life"));
-        m_lifeField=new JComboBox(RootboxCharactor.SPEC_RANK.values());
-        if(null!=m_target && null!=m_target.getLifeRank()){
-            m_lifeField.setSelectedItem(m_target.getLifeRank());
-        }
-        p.add(m_lifeField);
-        add(p);
-
 
         p=new JPanel();
         p.setLayout(new BoxLayout(p,BoxLayout.X_AXIS));
@@ -55,6 +46,19 @@ public class RootboxCharactorEditPanel extends JPanel{
         p.add(m_atkField);
         add(p);
 
+
+        p=new JPanel();
+        p.setLayout(new BoxLayout(p,BoxLayout.X_AXIS));
+        p.add(new JLabel("Life"));
+        m_lifeField=new JComboBox(RootboxCharactor.SPEC_RANK.values());
+        if(null!=m_target && null!=m_target.getLifeRank()){
+            m_lifeField.setSelectedItem(m_target.getLifeRank());
+        }
+        p.add(m_lifeField);
+        add(p);
+
+
+
         p=new JPanel();
         p.setLayout(new BoxLayout(p,BoxLayout.X_AXIS));
         p.add(new JLabel("Air atk"));
@@ -65,6 +69,17 @@ public class RootboxCharactorEditPanel extends JPanel{
         p.add(m_airAtkField);
         add(p);
         
+        p=new JPanel();
+        p.setLayout(new BoxLayout(p,BoxLayout.X_AXIS));
+        p.add(new JLabel("Torpedo"));
+        m_torpedoField=new JComboBox(RootboxCharactor.SPEC_RANK.values());
+        if(null!=m_target && null!=m_target.getTorpedoRank()){
+            m_torpedoField.setSelectedItem(m_target.getTorpedoRank());
+        }
+        p.add(m_torpedoField);
+        add(p);
+
+
         p=new JPanel();
         p.setLayout(new BoxLayout(p,BoxLayout.X_AXIS));
         p.add(new JLabel("Air def"));
@@ -117,9 +132,10 @@ public class RootboxCharactorEditPanel extends JPanel{
                     String outStr="(chara ";
                     outStr+=String.format("(pair \"name\" \"%s\")",m_target.getName());
                     outStr+=String.format("(pair \"type\" \"%s\")", m_target.getType().toString());
-                    outStr+=String.format("(pair \"life\" \"%s\")", m_target.getLifeRank().toString());
                     outStr+=String.format("(pair \"atk\" \"%s\")", m_target.getAtkRank().toString());
+                    outStr+=String.format("(pair \"life\" \"%s\")", m_target.getLifeRank().toString());
                     outStr+=String.format("(pair \"airAtk\" \"%s\")", m_target.getAirAtk().toString());
+                    outStr+=String.format("(pair \"torpedo\" \"%s\")", m_target.getTorpedoRank().toString());
                     outStr+=String.format("(pair \"airDef\" \"%s\")", m_target.getAirDefRank().toString());
                     outStr+=String.format("(pair \"avoid\" \"%s\")", m_target.getAvoidRank().toString());
                     outStr+=String.format("(pair \"image\" \"%s\")", m_target.getImageFile().getPath());

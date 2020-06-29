@@ -19,7 +19,6 @@ public class MapResultPanel extends JPanel implements ActionListener{
 
     public void actionPerformed(ActionEvent e){
         ((MainWindow)Main.s_mainWin).returnState();
-        System.out.println("A");
     }
 
 }

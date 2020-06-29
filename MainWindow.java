@@ -56,6 +56,7 @@ public class MainWindow extends JFrame{
         moveState(new RootboxPanel());
     }
     public void setMissionState(FieldMap m){
+        
         moveState(new MapPanel(m));
     }
 
@@ -112,6 +113,12 @@ public class MainWindow extends JFrame{
 
     public void setMapResultState(boolean isSucceded,FloorMap m){
         moveState(new MapResultPanel(isSucceded, m));
+    }
+    public void setBattleState(Party p,Party e){
+        moveState(new BattlePanel(p, e));
+    }
+    public void setBattleResultState(Party p,Party e){
+        moveState(new BattleResultPanel(p, e));
     }
     private void moveState(JPanel p){
         getContentPane().removeAll();

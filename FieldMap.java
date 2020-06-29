@@ -39,4 +39,9 @@ public class FieldMap {
     public void setMaxFloorNum(int n){
         m_maxFloorNum=n;
     }
+
+    @Override
+    public String toString(){
+        return m_name;
+    }
 }

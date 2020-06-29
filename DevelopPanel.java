@@ -4,7 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.text.html.StyleSheet.ListPainter;
+
 
 
 public class DevelopPanel extends JPanel{
@@ -48,18 +48,22 @@ public class DevelopPanel extends JPanel{
     private void setCharaListPanel(){
         removeContentPane();
         RootboxCharactorListPanel listPanel=new RootboxCharactorListPanel(true);
+        listPanel.addNewClickListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                removeContentPane();
+                add(createCharaEditPanel(null),BorderLayout.CENTER);
+
+                revalidate();
+                repaint();
+
+            }
+        });
         listPanel.addMouseListener(new MouseAdapter(){
             public void mouseClicked(MouseEvent e){
                 RootboxCharactor selObj=(RootboxCharactor)listPanel.getSelectedValue();
                 if(1<e.getClickCount() && null!=selObj){
                     removeContentPane();
-                    RootboxCharactorEditPanel editPanel=new RootboxCharactorEditPanel(selObj);
-                    editPanel.setCloseAction(new ActionListener(){
-                        public void actionPerformed(ActionEvent e){
-                            setCharaListPanel();
-                        }
-                    });
-                    add(editPanel,BorderLayout.CENTER);
+                    add(createCharaEditPanel(selObj),BorderLayout.CENTER);
 
                     revalidate();
                     repaint();
@@ -98,6 +102,17 @@ public class DevelopPanel extends JPanel{
         add(editPanel);
         revalidate();
         repaint();;
+
+    }
+
+    private RootboxCharactorEditPanel createCharaEditPanel(RootboxCharactor editObj){
+        RootboxCharactorEditPanel editPanel=new RootboxCharactorEditPanel(editObj);
+        editPanel.setCloseAction(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                setCharaListPanel();
+            }
+        });
+        return editPanel;
 
     }
 }

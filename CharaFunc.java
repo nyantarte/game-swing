@@ -13,18 +13,21 @@ public class CharaFunc extends LispVM.NativeMethodType{
             }else if("name".equals(paramName)){
                 c.setName((String)param.second);
             }else if("life".equals(paramName)){
-                c.setLifeRank((RootboxCharactor.SPEC_RANK)param.second);
+                c.setLifeRank(RootboxCharactor.SPEC_RANK.valueOf((String)param.second));
             }else if("atk".equals(paramName)){
-                c.setAtkRank((RootboxCharactor.SPEC_RANK)param.second);
+                c.setAtkRank(RootboxCharactor.SPEC_RANK.valueOf((String)param.second));
 
             }else if("airAtk".equals(paramName)){
-                c.setAirAtk((RootboxCharactor.SPEC_RANK)param.second);
+                c.setAirAtk(RootboxCharactor.SPEC_RANK.valueOf((String)param.second));
 
             }else if("airDef".equals(paramName)){
-                c.setAirDefRank((RootboxCharactor.SPEC_RANK)param.second);
+                c.setAirDefRank(RootboxCharactor.SPEC_RANK.valueOf((String)param.second));
 
             }else if("avoid".equals(paramName)){
-                c.setAvoidRank((RootboxCharactor.SPEC_RANK)param.second);
+                c.setAvoidRank(RootboxCharactor.SPEC_RANK.valueOf((String)param.second));
+            }else if("torpedo".equals(paramName)){
+                c.setTorpedoRank(RootboxCharactor.SPEC_RANK.valueOf((String)param.second));
+
             }
         }
         o.push(c);
